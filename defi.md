@@ -827,8 +827,10 @@ Voici donc un exemple simple de calculatrice réalisée avec flex et bison :
 | 			
 | %%
 | 
-| [[:digit:]]+ {yylval.value = atof(yytext);
-|     return NB;}
+| [[:digit:]]+(\.[[:digit:]]*)? {
+|     yylval.value = atof(yytext);
+|     return NB;
+| }
 | 
 | \n return FIN_EXPR;
 | 
@@ -870,7 +872,7 @@ Voici donc un exemple simple de calculatrice réalisée avec flex et bison :
 | 
 | %%
 | 
-| s:		s e FIN_EXPR {printf(">>> %f\n", $2);}
+| s:		s e FIN_EXPR {printf(">>> %f\n> ", $2);}
 | 		| s FIN_EXPR {exit(EXIT_SUCCESS);}
 | 		|
 | 		;
@@ -887,6 +889,7 @@ Voici donc un exemple simple de calculatrice réalisée avec flex et bison :
 | %%
 | 
 | int main(void){
+|   printf("> ");
 |   yyparse();
 |   return EXIT_SUCCESS;
 | }
@@ -942,9 +945,9 @@ Voici donc un exemple simple de calculatrice réalisée avec flex et bison :
 | cc parser.tab.o lex.yy.o -o calc.out -lfl -ly -lm
 | 
 | $ ./calc.out 
-| 23**2/5
+| > 23^2/5
 | >>> 105.800003
-| 7/3
+| > 7./3
 | >>> 2.333333
 | ```
 
