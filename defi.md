@@ -24,6 +24,12 @@ IDE/éditeur de texte ? Alors c'est parti !
 
 #Niveau 1 : La calculatrice Polonaise
 
+[[information]]
+| L'objectif de ce niveau est d'implémenter une calculatrice en notation
+| polonaise inverse. Les opérateurs `+`, `-`, `*`, `/` et `^` (puissance)
+| doivent être implémentés, et votre
+| calculatrice doit fonctionner avec des nombres flottants.
+
 La plus grande difficulté lors de l'écriture d'une calculatrice, c'est la
 gestion des priorités des opérations. Pour ce premier niveau, nous allons
 contourner le problème en réalisant une calculatrice en notation Polonaise
@@ -57,19 +63,17 @@ calculatrice sans aucune aide, ou bien suivre les différentes étapes
 ci-dessous.
 
 [[information]]
-| L'objectif est d'obtenir un programme ressemblant à quelque
-| chose comme :
+| Votre programme devra ressembler à quelque chose comme :
 | 
 | ```
 | > 2 2 +
-| 4
+| 4.0
 | > 3.4 2 / 4 +
 | 5.5
 | ```
-|
-| Les opérateurs `+`, `-`, `*`, `/` et `^` (puissance) doivent être
-| implémentés, et votre
-| calculatrice doit fonctionner avec des nombres flottants.
+| 
+| L'utilisateur aura le choix d'écrire les nombres avec un `.` ou pas.
+| Dans les deux cas, tous les nombres seront des nombres flottants.
 
 ##Étape 1 : La pile
 Une pile (stack en anglais) est une collection d'objets, au même titre qu'un tableau ou une
@@ -408,7 +412,7 @@ les opérateurs entre les opérandes, ce que vous avez l'habitude d'utiliser) ?
 
 [[information]]
 | L'objectif de ce niveau est d'obtenir un programme qui cette
-| fois-ci ressemble à :
+| fois-ci évalue les expressions infixes (classiques) :
 | 
 | ```
 | > (2 + 3) * 4
