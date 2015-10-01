@@ -8,6 +8,13 @@ poser vos questions !). Les niveaux 2 et 3 explorent des algorithmes et
 des méthodes d'analyse syntaxique plus complexes, mais beaucoup de détails
 seront donnés pour aider le lecteur à réaliser sa calculatrice.
 
+[[information]]
+| Pour chaque niveau, l'objectif sera indiqué dans un bloc d'information
+| comme celui-ci. Si vous ne voulez pas de mes indications, vous pouvez
+| sauter directement à ces blocs. De plus, vous n'êtes pas obligé de suivre
+| mes indications jusqu'au bout. Je vous invite après chaque étape à essayer
+| de trouver la solution par vous même.
+
 Le langage est libre, vous pouvez donc utiliser celui avec lequel vous êtes le
 plus à l'aise. Quant à la forme, l'idéal est de rester sur un programme
 textuel (pas d'interface graphique), de manière à se concentrer sur le
@@ -47,15 +54,22 @@ d'expression que je vais vous présenter est incroyablement simple comparé
 à celui pour évaluer des expressions classique ! Le seul prérequis est de
 savoir ce qu'est une pile. Vous pouvez essayer d'implémenter votre
 calculatrice sans aucune aide, ou bien suivre les différentes étapes
-ci-dessous. L'objectif est d'obtenir un programme ressemblant à quelque
-chose comme :
+ci-dessous.
 
-```
-> 2 2 +
-4
-> 2 3 * 4 +
-10
-```
+[[information]]
+| L'objectif est d'obtenir un programme ressemblant à quelque
+| chose comme :
+| 
+| ```
+| > 2 2 +
+| 4
+| > 3.4 2 / 4 +
+| 5.5
+| ```
+|
+| Les opérateurs `+`, `-`, `*`, `/` et `^` (puissance) doivent être
+| implémentés, et votre
+| calculatrice doit fonctionner avec des nombres flottants.
 
 ##Étape 1 : La pile
 Une pile (stack en anglais) est une collection d'objets, au même titre qu'un tableau ou une
@@ -255,15 +269,15 @@ L'algorithme est le suivant :
 |     Alors empiler(pile, w)
 |   Sinon si w est un opérateur
 |     opérande1 = dépiler(pile)
-| 	opérande2 = dépiler(pile)
-| 	Si w est '+'
-| 	  empiler(pile,opérande2 + opérande1)
-| 	Sinon si w est '-'
-| 	  empiler(pile,opérande2 - opérande1)
-| 	Sinon si w est '*'
-| 	  empiler(pile,opérande2 * opérande1)
-| 	Sinon si w est '/'
-| 	  empiler(pile,opérande2 / opérande1)
+|     opérande2 = dépiler(pile)
+|     Si w est '+'
+|       empiler(pile,opérande2 + opérande1)
+|     Sinon si w est '-'
+|       empiler(pile,opérande2 - opérande1)
+|     Sinon si w est '*'
+|       empiler(pile,opérande2 * opérande1)
+|     Sinon si w est '/'
+|       empiler(pile,opérande2 / opérande1)
 |     Fin si
 |   Fin si
 | Fin pour
@@ -280,7 +294,7 @@ opérandes dans le bon ordre pour `-` et `/`.
 Bon, je ne vais pas vous expliquer comment afficher le résultat une fois
 qu'il est calculé, je pense que vous en êtes capables.
 
-##Corection
+##Correction
 Si vous êtes curieux, je vous propose deux solutions en Python. La première
 sans gestion des erreurs pour bien voir l'algorithme, et la seconde complète
 avec gestion des erreurs. Cependant, je vous invite à regarder ces solutions
@@ -391,15 +405,21 @@ ou entrez une ligne vide.
 Vous avez réussi le niveau 1 mais vous aimeriez que votre calculatrice
 puisse évaluer des expressions mathématiques infixes (c'est à dire avec
 les opérateurs entre les opérandes, ce que vous avez l'habitude d'utiliser) ?
-Parfait ! L'objectif de ce niveau est d'obtenir un programme qui cette
-fois-ci ressemble à :
 
-```
-> (2 + 3) * 4
-20
-> 42 / 0.1
-420
-```
+[[information]]
+| L'objectif de ce niveau est d'obtenir un programme qui cette
+| fois-ci ressemble à :
+| 
+| ```
+| > (2 + 3) * 4
+| 20
+| > 42 / 0.1
+| 420
+| ```
+| 
+| Encore une fois, votre calculatrice doit fonctionner sur des nombres
+| flottants, et les mêmes opérateurs `+`, `-`, `*`, `/` et `^` doivent
+| être implémentés.
 
 Pour cela, je vais vous proposer deux méthodes radicalement différentes. Vous
 pouvez décider de suivre mes indications ou essayer votre propre méthode,
@@ -816,7 +836,7 @@ Voici donc un exemple simple de calculatrice réalisée avec flex et bison :
 | \/ return DIV;
 | \( return LPAR;
 | \) return RPAR;
-| \*\* return POW;
+| \^ return POW;
 | ```
 | 
 | parser.y
@@ -936,24 +956,31 @@ questions dans le topic et j'essaierai de vous aider.
 ##Amélioration 1 : Notation scientifique
 Pourquoi ne pas ajouter le support de la notation scientifique à
 votre calculatrice ? La plupart des langages de programmation
-proposent d'écrire les nombres sous cette forme. Pour rappel,
-la notation `42e-3` correspond au nombre $42 \times 10^{-3}$.
-Il faut donc prendre en compte correctement les "e" que vous
+proposent d'écrire les nombres sous cette forme.
+
+[[information]]
+| Votre calculatrice devra donc lire et interpréter correctement
+| les nombres sous cette forme. Pour rappel, la notation `42e-3`
+| correspond au nombre $42 \times 10^{-3}$.
+
+Pensez donc à prendre en compte correctement les "e" que vous
 trouverez lors de la lecture de l'expression (`42e-3`
 correspond à un lexème `NUM`).
 
 ##Amélioration 2 : Ajout d'un environnement
 Lorsque l'on fait de gros calculs, il est souvent bien pratique
 de pouvoir calculer des sous-résultats pour éviter de se tromper.
-Je vous propose donc d'ajouter des variables à votre calculatrice.
-L'utilisation se fera de la manière suivante :
 
-```
-> a = 12 + 4
-a <- 16
-> 5 * a
-80
-```
+[[information]]
+| L'objectif ici sera donc d'ajouter des variables à votre calculatrice.
+| L'utilisation se fera de la manière suivante :
+| 
+| ```
+| > a = 12 + 4
+| a <- 16
+| > 5 * a
+| 80
+| ```
 
 Il faut donc :
 
@@ -975,14 +1002,20 @@ identificateur.
 ##Amélioration 3 : Des fonctions
 Votre calculatrice gagnerait à proposer des fonctions mathématiques
 usuelles comme `sqrt` pour la racine, `sin`, `cos` et `tan` pour la
-trigonométrie etc... L'utilisation serait alors la suivante :
+trigonométrie etc...
 
-```
-> sqrt(4, 2)
-2
-> cos(0)
-1
-```
+[[information]]
+| Vous êtes ici libre d'ajouter toutes les fonctions mathématiques
+| que vous voulez.
+| Votre calculatrice doit ensuite pouvoir s'utiliser de la manière
+| suivante :
+| 
+| ```
+| > sqrt(4, 2)
+| 2
+| > cos(0)
+| 1
+| ```
 
 Pour celà, il faut :
 
@@ -993,8 +1026,20 @@ les fonctions.
 - Appeler les bonnes fonctions en vérifiant que le nombre de
 paramètres passés est le bon.
 
-Bien plus compliqué, pourquoi ne pas permettre à votre utilisateur
-de définir lui même ses fonctions ? Si vous avez fait l'amélioration
+[[information]]
+| Bien plus compliqué, pourquoi ne pas permettre à votre utilisateur
+| de définir lui même ses fonctions ? Par exemple, de la manière
+| suivante :
+|
+| ```
+| > f(x) = 3 * x
+| f <- 3 * x
+| > f(3)
+| 9
+| ```
+
+
+Si vous avez fait l'amélioration
 précédente, vous avez déjà un environnement prêt. Les variables
 numériques sont des cas particuliers de fonctions d'arité nulle
 (c'est à dire qui ne prennent pas d'argument), et votre environnement
@@ -1036,6 +1081,8 @@ interne pour les fonctions déclarées par l'utilisateur. Vous pouvez la
 garder sous la forme de chaîne de caractères accompagnée de la liste des
 paramètres, ou bien la représenter par un arbre, à vous de voir.
 
-Si vous êtes motivés et que vous connaissez la programmation fonctionnelle,
-pourquoi ne pas vous débarrasser de ces parenthèses et implémenter les
-notions de curryfication et d'application partielle de fonction ? :)
+[[information]]
+| Enfin, si vous êtes motivés et que vous connaissez la programmation
+| fonctionnelle,
+| pourquoi ne pas vous débarrasser de ces parenthèses et implémenter les
+| notions de curryfication et d'application partielle de fonction ? :)
